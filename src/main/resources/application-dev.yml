@@ -1,0 +1,29 @@
+spring:
+  servlet:
+    multipart:
+      max-request-size: 256MB
+      max-file-size: 256MB
+  datasource:
+    dynamic:
+      primary: main
+      strict: true
+      datasource:
+        main:
+          driverClassName: com.mysql.cj.jdbc.Driver  # mysql驱动包
+          url: jdbc:mysql://47.103.156.64:3307/wechat_demo?useSSL=false&useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+          username: root
+          password: Njwx671011!
+          hikari:
+            connection-timeout: 30000
+            idle-timeout: 600000
+            max-lifetime: 180000
+server:
+  servlet:
+    context-path: /
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
