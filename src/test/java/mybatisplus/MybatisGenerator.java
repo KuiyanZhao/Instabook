@@ -16,9 +16,7 @@ public class MybatisGenerator {
 
 
     public static void main(String[] args) {
-//        List<String> tables = List.of("enterprise", "enterprise_auditing", "enterprise_record", "enterprise_manager", "enterprise_manager_record");
-//        List<String> tables = List.of("he_user_map");
-        List<String> tables = List.of("user_application", "user_relationship", "message");
+        List<String> tables = List.of("news", "news_comment", "file");
         String localProperty = System.getProperty("user.dir");
         String mapLocation = localProperty + "\\src\\main\\resources\\mappers";
         String finalMapLocation = mapLocation;
@@ -34,7 +32,8 @@ public class MybatisGenerator {
 
         FastAutoGenerator.create("jdbc:mysql://47.103.156.64:3307/wechat_demo?serverTimezone=GMT%2b8", "root", "Njwx671011!")//数据库配置
                 .globalConfig(builder -> {
-                    builder.fileOverride() // 覆盖已生成文件
+                    builder.author("Kuiyan Zhao")
+                            .fileOverride() // 覆盖已生成文件
                             .dateType(DateType.ONLY_DATE)// 日期类型
                             .outputDir(outputLocation); // 指定输出目录
                 })

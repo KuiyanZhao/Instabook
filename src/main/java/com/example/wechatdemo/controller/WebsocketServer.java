@@ -68,7 +68,7 @@ public class WebsocketServer {
         log.info("disconnect success，online num：{} ==> listening：session_id = {}， user_id = {},。", onlineSessionClientCount, session.getId(), userId);
     }
 
-    //{"userId": "1772586728977190914", "message": {"text": "hello"}, "type": 0}
+    //{"userId": "1772586728977190914", "message": {"content": "hello"}, "type": 0}
     @OnMessage
     public void onMessage(String message, Session session) {
         JSONObject jsonObject = JSON.parseObject(message);

@@ -17,6 +17,15 @@ spring:
             connection-timeout: 30000
             idle-timeout: 600000
             max-lifetime: 180000
+        ark:
+          driverClassName: com.mysql.cj.jdbc.Driver  # mysql驱动包
+          url: jdbc:mysql://47.103.156.64:3307/wechat_demo?useSSL=false&useUnicode=true&serverTimezone=GMT%2B8&characterEncoding=utf-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull
+          username: root
+          password: Njwx671011!
+          hikari:
+            connection-timeout: 30000
+            idle-timeout: 600000
+            max-lifetime: 180000
 server:
   servlet:
     context-path: /
@@ -27,3 +36,11 @@ server:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+alibaba:
+  cloud:
+    oss:
+      endpoint: oss-cn-shanghai.aliyuncs.com
+      internal-endpoint: null
+      bucket-name: chat-bucket-demo
+    access-id: LTAI5t8ry5KZAqBk2LVka76x
+    access-key: 4A7g7ToFw2ARETZPD0OYk04361rdSm

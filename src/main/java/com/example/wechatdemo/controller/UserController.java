@@ -5,8 +5,10 @@ import com.example.wechatdemo.common.exception.ClientException;
 import com.example.wechatdemo.common.model.R;
 import com.example.wechatdemo.interceptor.UserTokenInterceptor;
 import com.example.wechatdemo.model.dos.User;
+import com.example.wechatdemo.service.FileService;
 import com.example.wechatdemo.service.UserService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -66,6 +68,11 @@ public class UserController {
         user.setPassword(null);
         user.setSalt(null);
         return R.success(user);
+    }
+
+    @PutMapping("/profile")
+    public R<User> uploadHeadImg(@RequestPart("file") MultipartFile file) {
+        return R.success(userService.uploadHeadImg(file));
     }
 
 }

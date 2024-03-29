@@ -3,16 +3,22 @@ package com.example.wechatdemo.service.impl;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.wechatdemo.common.exception.ClientErrorEnum;
 import com.example.wechatdemo.common.exception.ClientException;
 import com.example.wechatdemo.interceptor.UserTokenInterceptor;
+import com.example.wechatdemo.model.dos.File;
 import com.example.wechatdemo.model.dos.User;
 import com.example.wechatdemo.mapper.UserMapper;
+import com.example.wechatdemo.service.FileService;
 import com.example.wechatdemo.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.wechatdemo.utils.JWTUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -25,6 +31,9 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+
+    @Resource
+    private FileService fileService;
 
     @Override
     public User register(User user) {
@@ -91,5 +100,28 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         });
 
         return otherUsers;
+    }
+
+    @Override
+    public User uploadHeadImg(MultipartFile file) {
+        User user = UserTokenInterceptor.getUser();
+        File headImgFile = new File();
+        headImgFile.setChannel(1);
+        headImgFile.setMultipartFile(file);
+        headImgFile.setOuterId(String.valueOf(user.getUserId()));
+        headImgFile = fileService.upload(headImgFile);
+
+        if (StringUtils.isNotBlank(user.getHeadImg())) {
+            File oldFile = fileService.getByOuterId(user.getUserId());
+            if (oldFile != null) {
+                fileService.delete(oldFile.getFileId());
+            }
+        }
+
+        this.update(new UpdateWrapper<User>()
+                .eq("user_id", user.getUserId())
+                .set("head_img", headImgFile.getUrl()));
+        user.setHeadImg(headImgFile.getUrl());
+        return user;
     }
 }
