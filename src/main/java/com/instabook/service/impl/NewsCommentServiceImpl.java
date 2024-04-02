@@ -47,7 +47,7 @@ public class NewsCommentServiceImpl extends ServiceImpl<NewsCommentMapper, NewsC
         if (replyComment == null) {
             throw new ClientException(ClientErrorEnum.REPLY_COMMENT_NOT_EXIST);
         }
-
+        newsComment.setNewsId(replyComment.getNewsId());
         newsComment.setReplyComment(replyComment.getComment() == null ? "" :
                 replyComment.getComment().length() <= 30 ? replyComment.getComment() : replyComment.getComment().substring(0, 30));
         newsComment.setReplyUserId(replyComment.getUserId());
