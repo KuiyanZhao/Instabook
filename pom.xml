@@ -8,11 +8,11 @@
         <version>2.7.6</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.example</groupId>
-    <artifactId>wechat-demo</artifactId>
+    <groupId>com.instabook</groupId>
+    <artifactId>instabook</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wechat-demo</name>
-    <description>wechat-demo</description>
+    <name>instabook</name>
+    <description>instabook</description>
     <properties>
         <java.version>17</java.version>
         <spring-boot.version>2.3.7.RELEASE</spring-boot.version>

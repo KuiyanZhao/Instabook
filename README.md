@@ -1,2 +1,2 @@
-# wechat-demo
-wechat service
+# instabook
+instabook service

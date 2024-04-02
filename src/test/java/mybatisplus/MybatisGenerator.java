@@ -30,7 +30,7 @@ public class MybatisGenerator {
         customFileMap.put("FinanceQueryBo.java", "/vm/java/queryBo.java.vm");
         customFileMap.put("FinanceVo.java", "/vm/java/vo.java.vm");
 
-        FastAutoGenerator.create("jdbc:mysql://47.103.156.64:3307/wechat_demo?serverTimezone=GMT%2b8", "root", "Njwx671011!")//数据库配置
+        FastAutoGenerator.create("jdbc:mysql://47.103.156.64:3307/instabook?serverTimezone=GMT%2b8", "root", "Njwx671011!")//数据库配置
                 .globalConfig(builder -> {
                     builder.author("Kuiyan Zhao")
                             .fileOverride() // 覆盖已生成文件
@@ -38,7 +38,7 @@ public class MybatisGenerator {
                             .outputDir(outputLocation); // 指定输出目录
                 })
                 .packageConfig(builder -> {
-                    builder.parent("com.example.wechatdemo") // 设置父包名
+                    builder.parent("com.instabook") // 设置父包名
 //                            .moduleName("xxx")// 设置父包模块名
                             .controller("controller")
                             .mapper("mapper")
