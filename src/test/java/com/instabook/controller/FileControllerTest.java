@@ -1,9 +1,9 @@
-package com.example.wechatdemo.controller;
+package com.instabook.controller;
 
 import cn.hutool.core.util.IdUtil;
-import com.example.wechatdemo.common.model.R;
-import com.example.wechatdemo.model.dos.File;
-import com.example.wechatdemo.service.FileService;
+import com.instabook.common.model.R;
+import com.instabook.model.dos.File;
+import com.instabook.service.FileService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

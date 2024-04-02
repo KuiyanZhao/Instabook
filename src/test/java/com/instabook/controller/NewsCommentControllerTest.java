@@ -1,16 +1,14 @@
-package com.example.wechatdemo.controller;
+package com.instabook.controller;
 
-import com.example.wechatdemo.common.model.R;
-import com.example.wechatdemo.model.dos.NewsComment;
-import com.example.wechatdemo.service.NewsCommentService;
+import com.instabook.common.model.R;
+import com.instabook.model.dos.NewsComment;
+import com.instabook.service.NewsCommentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.ArgumentMatchers.any;

@@ -1,10 +1,10 @@
-package com.example.wechatdemo.controller;
+package com.instabook.controller;
 
-import com.example.wechatdemo.common.exception.ClientException;
-import com.example.wechatdemo.common.model.Page;
-import com.example.wechatdemo.common.model.R;
-import com.example.wechatdemo.model.dos.Message;
-import com.example.wechatdemo.service.MessageService;
+import com.instabook.common.exception.ClientException;
+import com.instabook.common.model.Page;
+import com.instabook.common.model.R;
+import com.instabook.model.dos.Message;
+import com.instabook.service.MessageService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
