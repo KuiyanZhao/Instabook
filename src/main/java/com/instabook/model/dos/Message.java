@@ -103,4 +103,25 @@ public class Message implements Serializable {
      */
     @TableField("request_id")
     private String requestId;
+
+    public String getContent() {
+        return this.message != null ? this.message.getString("content") : null;
+    }
+
+    public void setContent(String content) {
+        // Initialize 'message' if it's null
+        if (this.message == null) {
+            this.message = new JSONObject();
+        }
+        this.message.put("content", content);
+    }
+
+    // Assuming 'messageId' is the identifier field
+    public Long getId() {
+        return this.messageId;
+    }
+
+    public void setId(Long id) {
+        this.messageId = id;
+    }
 }
