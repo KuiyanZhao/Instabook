@@ -132,8 +132,8 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
         } else {
             userRelationship2 = new UserRelationship();
             userRelationship2.setUserRelationshipId(IdUtil.getSnowflakeNextId());
-            userRelationship2.setAnotherUserId(userApplication.getUserId());
-            userRelationship2.setUserId(userApplication.getAnotherUserId());
+            userRelationship2.setAnotherUserId(userApplication.getAnotherUserId());
+            userRelationship2.setUserId(userApplication.getUserId());
             userRelationship2.setFriendStatus(1);
             userRelationship2.setRelationStatus(0);
             userRelationshipService.save(userRelationship2);
