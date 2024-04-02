@@ -53,10 +53,11 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
     @Value("${alibaba.cloud.oss.bucket-name}")
     private String bucketName;
 
-    String host = "https://".concat(bucketName + "." + endpoint);
+
 
     @Override
     public File upload(File file) {
+        String host = "https://".concat(bucketName + "." + endpoint);
         //authorization
         UserTokenInterceptor.getUser();
         file.setFileId(IdUtil.getSnowflakeNextId());
@@ -77,6 +78,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
                 ossClient.shutdown();
             }
         }
+        file.setMultipartFile(null);
         return file;
     }
 
