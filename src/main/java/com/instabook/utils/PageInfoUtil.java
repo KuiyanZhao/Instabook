@@ -5,6 +5,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+/**
+ * receive pageNo and pageSize
+ */
 public class PageInfoUtil {
     public static <E> Page<E> startPage() {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();

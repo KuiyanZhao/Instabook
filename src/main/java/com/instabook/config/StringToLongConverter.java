@@ -4,6 +4,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.beans.PropertyEditorSupport;
 
+/**
+ * StringToLongConverter
+ */
 public class StringToLongConverter extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {

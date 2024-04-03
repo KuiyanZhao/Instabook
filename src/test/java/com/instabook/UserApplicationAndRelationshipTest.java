@@ -14,6 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
 
+/**
+ * test for application
+ */
 @Slf4j
 @SpringBootTest
 public class UserApplicationAndRelationshipTest {

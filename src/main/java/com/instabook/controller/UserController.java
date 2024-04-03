@@ -17,7 +17,8 @@ import java.util.List;
  * user controller
  * </p>
  *
- * @author 作者
+ * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  */
 @RestController
 @RequestMapping("/user")

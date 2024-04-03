@@ -3,6 +3,9 @@ package com.instabook.common.exception;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+/**
+ * format the exception message
+ */
 @EqualsAndHashCode(callSuper = true)
 @Data
 public class ClientException extends RuntimeException {

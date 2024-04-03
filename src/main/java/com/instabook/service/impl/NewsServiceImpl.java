@@ -30,6 +30,7 @@ import java.util.List;
  * </p>
  *
  * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  * @since 2024-03-29
  */
 @Service
@@ -47,8 +48,10 @@ public class NewsServiceImpl extends ServiceImpl<NewsMapper, News> implements Ne
     @Override
     public Page<News> getFriendNewsAndComments() {
         Page<News> newsPage = this.page(PageInfoUtil.startPage(), new QueryWrapper<News>()
-                .inSql("user_id", "select distinct user_id from user_relationship where (another_user_id = "
-                        + UserTokenInterceptor.getUser().getUserId() + " and friend_status = 1 and relation_status = 0) " +
+                .inSql("user_id", "select distinct user_id from user_relationship " +
+                        "where (another_user_id = "
+                        + UserTokenInterceptor.getUser().getUserId() + " and friend_status = 1 " +
+                        "and relation_status = 0) " +
                         "or user_id = " + UserTokenInterceptor.getUser().getUserId()));//can see yourself
         List<News> records = newsPage.getRecords();
         if (records.size() > 0) {

@@ -12,6 +12,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
 
+/**
+ * long format use
+ * @param <T>
+ */
 public class Page<T> implements IPage<T> {
     @Serial
     private static final long serialVersionUID = 1L;

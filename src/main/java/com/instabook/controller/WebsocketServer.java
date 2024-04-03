@@ -19,6 +19,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * websocket server
+ */
 @ServerEndpoint(value = "/websocket", configurator = WebSocketConfig.class)
 @Component
 @Slf4j
@@ -31,10 +34,9 @@ public class WebsocketServer {
         WebsocketServer.messageService = messageService;
     }
 
-    private static final Map<Long, Map<String, Session>> onlineSessionClientMap = new ConcurrentHashMap<>();
-    private static final AtomicInteger onlineSessionClientCount = new AtomicInteger(0);
+    private static final Map<Long, Map<String, Session>> ONLINE_SESSION_CLIENT_MAP = new ConcurrentHashMap<>();
+    private static final AtomicInteger ONLINE_SESSION_CLIENT_COUNT = new AtomicInteger(0);
     private Long userId;
-    private Session session;
 
     @OnOpen
     public void onOpen(Session session) {
@@ -43,29 +45,30 @@ public class WebsocketServer {
             throw new ClientException(ClientErrorEnum.TokenError);
         }
         User user = (User) userProperty;
-        Map<String, Session> integerSessionMap = onlineSessionClientMap.get(user.getUserId());
+        Map<String, Session> integerSessionMap = ONLINE_SESSION_CLIENT_MAP.get(user.getUserId());
         if (integerSessionMap == null) {
             integerSessionMap = new ConcurrentHashMap<>();
-            onlineSessionClientCount.incrementAndGet();
+            ONLINE_SESSION_CLIENT_COUNT.incrementAndGet();
         }
         integerSessionMap.put(session.getId(), session);
-        onlineSessionClientMap.put(user.getUserId(), integerSessionMap);
+        ONLINE_SESSION_CLIENT_MAP.put(user.getUserId(), integerSessionMap);
 
         this.userId = user.getUserId();
-        this.session = session;
 
-        log.info("connect success，online num：{} ==> listening：session_id = {}， user_id = {},。", onlineSessionClientCount, session.getId(), userId);
+        log.info("connect success，online num：{} ==> listening：session_id = {}， user_id = {},。",
+                ONLINE_SESSION_CLIENT_COUNT, session.getId(), userId);
     }
 
     @OnClose
     public void onClose(Session session) {
-        Map<String, Session> userSessionMap = onlineSessionClientMap.get(userId);
+        Map<String, Session> userSessionMap = ONLINE_SESSION_CLIENT_MAP.get(userId);
         userSessionMap.remove(session.getId());
         if (userSessionMap.isEmpty()) {
-            onlineSessionClientCount.decrementAndGet();
-            onlineSessionClientMap.remove(userId);
+            ONLINE_SESSION_CLIENT_COUNT.decrementAndGet();
+            ONLINE_SESSION_CLIENT_MAP.remove(userId);
         }
-        log.info("disconnect success，online num：{} ==> listening：session_id = {}， user_id = {},。", onlineSessionClientCount, session.getId(), userId);
+        log.info("disconnect success，online num：{} ==> listening：session_id = {}， user_id = {},。",
+                ONLINE_SESSION_CLIENT_COUNT, session.getId(), userId);
     }
 
     //{"userId": "1772586728977190914", "message": {"content": "hello"}, "type": 0}
@@ -85,7 +88,8 @@ public class WebsocketServer {
             Message error = new Message();
             error.setAnotherUserId(toUserId);
             error.setUserId(userId);
-            error.setChatId(Math.min(error.getUserId(), error.getAnotherUserId()) + "" + Math.max(error.getUserId(), error.getAnotherUserId()));
+            error.setChatId(Math.min(error.getUserId(), error.getAnotherUserId()) + "" + Math.max(error.getUserId(),
+                    error.getAnotherUserId()));
             error.setType(-1);
             JSONObject errorMsg = new JSONObject();
             errorMsg.put("content", e.getMessage());
@@ -95,11 +99,12 @@ public class WebsocketServer {
     }
 
     private void reply(Message message) {
-        Map<String, Session> userSessionMap = onlineSessionClientMap.get(userId);
+        Map<String, Session> userSessionMap = ONLINE_SESSION_CLIENT_MAP.get(userId);
         for (Session session : userSessionMap.values()) {
             try {
                 session.getBasicRemote().sendText(JSON.toJSONString(message));
-            } catch (IOException ignored) {
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -113,12 +118,13 @@ public class WebsocketServer {
 
     //sendMsg when another user is online
     private void sendMessage(Message message) {
-        Map<String, Session> userSessionMap = onlineSessionClientMap.get(message.getAnotherUserId());
+        Map<String, Session> userSessionMap = ONLINE_SESSION_CLIENT_MAP.get(message.getAnotherUserId());
         if (userSessionMap != null) {
             for (Session session : userSessionMap.values()) {
                 try {
                     session.getBasicRemote().sendText(JSON.toJSONString(message));
-                } catch (IOException ignored) {
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         }

@@ -20,7 +20,8 @@ import javax.annotation.Resource;
  * message controller
  * </p>
  *
- * @author 作者
+ * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  */
 @RestController
 @RequestMapping("/message")

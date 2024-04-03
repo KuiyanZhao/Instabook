@@ -22,6 +22,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  * @since 2024-03-29
  */
 @Getter

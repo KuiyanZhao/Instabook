@@ -11,7 +11,8 @@ import java.util.List;
  *  服务类
  * </p>
  *
- * @author 作者
+ * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  * 
  */
 public interface UserService extends IService<User> {

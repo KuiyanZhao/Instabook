@@ -21,6 +21,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * WebSocketConfig
+ */
 @Configuration
 @Slf4j
 public class WebSocketConfig extends ServerEndpointConfig.Configurator {
@@ -74,7 +77,8 @@ public class WebSocketConfig extends ServerEndpointConfig.Configurator {
                 user.setUserId(Long.parseLong((String) userClaims.get("user_id")));
                 try {
                     user.setUserName((String) userClaims.get("user_name"));
-                } catch (Exception ignored) {
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 userProperties.put("user", user);
                 log.debug("user->" + user);

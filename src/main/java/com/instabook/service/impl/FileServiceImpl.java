@@ -26,6 +26,7 @@ import java.time.LocalDate;
  * </p>
  *
  * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  * @since 2024-03-29
  */
 @Service
@@ -73,7 +74,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
             throw new ClientException(ClientErrorEnum.IOError);
         } catch (OSSException e) {
             throw new ClientException(ClientErrorEnum.IOError, "OSS ERROR: " + e.getErrorMessage());
-        }finally {
+        } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
             }
@@ -94,7 +95,7 @@ public class FileServiceImpl extends ServiceImpl<FileMapper, File> implements Fi
             ossClient.deleteObject(bucketName, file.getPath());
         } catch (OSSException e) {
             throw new ClientException(ClientErrorEnum.IOError, "OSS ERROR: " + e.getErrorMessage());
-        }finally {
+        } finally {
             if (ossClient != null) {
                 ossClient.shutdown();
             }

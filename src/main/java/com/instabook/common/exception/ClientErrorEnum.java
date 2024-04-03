@@ -2,13 +2,16 @@ package com.instabook.common.exception;
 
 import lombok.Getter;
 
+/**
+ * error enums
+ */
 @Getter
 public enum ClientErrorEnum {
 
-    TokenError(401,"token error"),
-    UserNotExist(404,"user not exist"),
-    UserExist(409,"user exist"),
-    AlreadyFriend(409,"you are already friends"),
+    TokenError(401, "token error"),
+    UserNotExist(404, "user not exist"),
+    UserExist(409, "user exist"),
+    AlreadyFriend(409, "you are already friends"),
 
     Blocked(409, "you are blocked"),
     ApplicationNotExist(409, "application is miss, please refresh and try again"),

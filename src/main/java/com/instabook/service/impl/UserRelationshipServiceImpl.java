@@ -23,7 +23,8 @@ import java.util.List;
  * 服务实现类
  * </p>
  *
- * @author 作者
+ * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  */
 @Service
 public class UserRelationshipServiceImpl extends ServiceImpl<UserRelationshipMapper, UserRelationship> implements UserRelationshipService {

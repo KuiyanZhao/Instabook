@@ -13,13 +13,16 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * generate and decode jwt
+ */
 public class JWTUtil implements Serializable {
 
-    private static final String secret = "IUHHSIyiuyw87sj";
+    private static final String SECRET = "IUHHSIyiuyw87sj";
 
-    public static final int calendarField = Calendar.DATE;
+    public static final int CALENDAR_FIELD = Calendar.DATE;
 
-    public static final int calendarInterval = 30;
+    public static final int CALENDAR_INTERVAL = 30;
 
     public static String generateToken(User user) {
         if (user == null || user.getUserId() == null) {
@@ -28,7 +31,7 @@ public class JWTUtil implements Serializable {
         Date iatDate = new Date();
         // expire time
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(calendarField, calendarInterval);
+        nowTime.add(CALENDAR_FIELD, CALENDAR_INTERVAL);
         Date expiresDate = nowTime.getTime();
 
         // header Map
@@ -48,7 +51,7 @@ public class JWTUtil implements Serializable {
                         .setId(UUID.randomUUID().toString())
                         .setIssuedAt(iatDate)
                         .setExpiration(expiresDate)
-                        .signWith(SignatureAlgorithm.HS512, secret)
+                        .signWith(SignatureAlgorithm.HS512, SECRET)
                         .compact();
         return "Bearer " + token;
     }
@@ -56,7 +59,7 @@ public class JWTUtil implements Serializable {
     public static Claims verifyToken(String token) {
 
         try {
-            final Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+            final Claims claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody();
             return claims;
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,12 +68,12 @@ public class JWTUtil implements Serializable {
     }
 
     public static Date getExpiresDate(String token) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getExpiration();
+        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getExpiration();
     }
 
     public static String parserToken(String token) {
 
-        Jws<Claims> claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+        Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
 
         return claims.getBody().getSubject();
 

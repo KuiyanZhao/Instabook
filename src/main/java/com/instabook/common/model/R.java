@@ -2,6 +2,10 @@ package com.instabook.common.model;
 
 import lombok.Data;
 
+/**
+ * format return items
+ * @param <T>
+ */
 @Data
 public class R<T> {
     private T data;

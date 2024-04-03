@@ -19,7 +19,8 @@ import lombok.Setter;
  * 
  * </p>
  *
- * @author 作者
+ * @author Kuiyan Zhao
+ * @version 1.0 2024-03-29
  * 
  */
 @Getter
@@ -103,4 +104,17 @@ public class Message implements Serializable {
      */
     @TableField("request_id")
     private String requestId;
+
+
+    public String getContent() {
+        return this.message != null ? this.message.getString("content") : null;
+    }
+
+    public void setContent(String content) {
+        // Initialize 'message' if it's null
+        if (this.message == null) {
+            this.message = new JSONObject();
+        }
+        this.message.put("content", content);
+    }
 }

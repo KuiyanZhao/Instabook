@@ -59,23 +59,31 @@ class InstabookApplicationTests {
 
         try {
             user1 = userController.search("username1").getData().get(0);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             user2 = userController.search("username2").getData().get(0);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             user3 = userController.search("username3").getData().get(0);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             user4 = userController.search("username4").getData().get(0);
-        } catch (Exception ignored) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         UserTokenInterceptor.userThreadLocal.remove();
     }
 
 
     @Test
-    void case1_1Test() {
+    void case11Test() {
         User user = new User();
         user.setUserName("username1");
         user.setPassword("password");
@@ -88,7 +96,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case1_2Test() {
+    void case12Test() {
         User registerUser = new User();
         registerUser.setUserName("username1");
         registerUser.setPassword("password");
@@ -109,7 +117,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case1_3Test() {
+    void case13Test() {
         User registerUser = new User();
         registerUser.setUserName("username2");
         registerUser.setPassword("password");
@@ -129,7 +137,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case1_4Test() {
+    void case14Test() {
         User registerUser = new User();
         registerUser.setUserName("username3");
         registerUser.setPassword("password");
@@ -149,7 +157,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case1_5Test() {
+    void case15Test() {
         User registerUser = new User();
         registerUser.setUserName("username4");
         registerUser.setPassword("password4");
@@ -169,7 +177,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case2_1Test() {
+    void case21Test() {
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
 
@@ -191,7 +199,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case2_2Test() {
+    void case22Test() {
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
 
@@ -210,7 +218,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case2_3Test() {
+    void case23Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
@@ -233,7 +241,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case2_4Test() {
+    void case24Test() {
         findAllUsers();
         //mock login username2 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user2);
@@ -268,7 +276,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case2_5Test() {
+    void case25Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
@@ -290,7 +298,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case3_1Test() {
+    void case31Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
@@ -304,7 +312,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case4_1Test() {
+    void case41Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
@@ -317,7 +325,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case4_2Test() {
+    void case42Test() {
         findAllUsers();
         UserTokenInterceptor.userThreadLocal.set(user2);
 
@@ -326,7 +334,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case4_3Test() {
+    void case43Test() {
         findAllUsers();
         UserTokenInterceptor.userThreadLocal.set(user3);
 
@@ -335,7 +343,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case4_4Test() {
+    void case44Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user1);
@@ -351,7 +359,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case5_1Test() {
+    void case51Test() {
         findAllUsers();
         //mock login username1 cause there is no header
         UserTokenInterceptor.userThreadLocal.set(user2);
@@ -367,7 +375,7 @@ class InstabookApplicationTests {
     }
 
     @Test
-    void case5_2Test() {
+    void case52Test() {
         findAllUsers();
 
         //user3 login and apply user1 user2
