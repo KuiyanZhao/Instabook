@@ -56,7 +56,9 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
             message.setRequestId(IdUtil.getSnowflakeNextIdStr());
         }
         message.setUserName(user.getUserName());
+        message.setUserHeadImg(user.getHeadImg());
         message.setAnotherUserName(anotherUser.getUserName());
+        message.setAnotherUserHeadImg(anotherUser.getHeadImg());
         message.setMessageId(IdUtil.getSnowflakeNextId());
         message.setUserId(UserTokenInterceptor.getUser().getUserId());
         message.setChatId(Math.min(message.getUserId(), message.getAnotherUserId()) + "" + Math.max(message.getUserId(), message.getAnotherUserId()));

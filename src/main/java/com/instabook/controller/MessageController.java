@@ -14,6 +14,7 @@ import com.instabook.utils.PageInfoUtil;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Comparator;
 
 /**
  * <p>
@@ -55,9 +56,13 @@ public class MessageController {
             throw new ClientException(ClientErrorEnum.DataNotExist, "chat not exist");
         }
 
-        return R.success(messageService.page(PageInfoUtil.startPage(),
+        Page<Message> page = messageService.page(PageInfoUtil.startPage(),
                 new QueryWrapper<Message>()
-                        .eq("chat_id", chatId)));
+                        .eq("chat_id", chatId)
+                        .orderByDesc("message_id"));
+        page.getRecords().sort(Comparator.comparingLong(Message::getMessageId));
+
+        return R.success(page);
     }
 
     @DeleteMapping("/{message_id}")

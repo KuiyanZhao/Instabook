@@ -75,14 +75,13 @@ public class WebsocketServer {
     @OnMessage
     public void onMessage(String message, Session session) {
         JSONObject jsonObject = JSON.parseObject(message);
-        Long toUserId = jsonObject.getLong("userId");
+        Long toUserId = jsonObject.getLong("anotherUserId");
         JSONObject msg = jsonObject.getJSONObject("message");
         int type = jsonObject.getIntValue("type");
         String requestId = jsonObject.getString("requestId");
         try {
             Message send = messageService.send(requestId, userId, toUserId, type, msg);
             sendMessage(send);
-            send.setType(200);
             reply(send);
         } catch (ClientException e) {
             Message error = new Message();
