@@ -10,12 +10,16 @@ import com.instabook.interceptor.UserTokenInterceptor;
 import com.instabook.model.dos.File;
 import com.instabook.model.dos.User;
 import com.instabook.mapper.UserMapper;
+import com.instabook.model.dos.UserRelationship;
 import com.instabook.service.FileService;
+import com.instabook.service.UserRelationshipService;
 import com.instabook.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.instabook.utils.JWTUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -35,6 +39,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Resource
     private FileService fileService;
+
+    @Lazy
+    @Resource
+    private UserRelationshipService userRelationshipService;
 
     @Override
     public User register(User user) {
@@ -104,6 +112,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public User uploadHeadImg(MultipartFile file) {
         User user = UserTokenInterceptor.getUser();
         File headImgFile = new File();
@@ -123,6 +132,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                 .eq("user_id", user.getUserId())
                 .set("head_img", headImgFile.getUrl()));
         user.setHeadImg(headImgFile.getUrl());
+
+        userRelationshipService.update(new UpdateWrapper<UserRelationship>()
+                .eq("user_id", user.getUserId())
+                .set("user_head_img", headImgFile.getUrl()));
+
+        userRelationshipService.update(new UpdateWrapper<UserRelationship>()
+                .eq("another_user_id", user.getUserId())
+                .set("another_user_head_img", headImgFile.getUrl()));
         return user;
     }
 }

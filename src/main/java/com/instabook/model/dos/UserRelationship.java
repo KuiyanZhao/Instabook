@@ -41,10 +41,28 @@ public class UserRelationship implements Serializable {
     private Long userId;
 
     /**
+     * name
+     */
+    @TableField("user_name")
+    private String userName;
+
+    @TableField("user_head_img")
+    private String userHeadImg;
+
+    /**
      * another one
      */
     @TableField("another_user_id")
     private Long anotherUserId;
+
+    /**
+     * name
+     */
+    @TableField("another_user_name")
+    private String anotherUserName;
+
+    @TableField("another_user_head_img")
+    private String anotherUserHeadImg;
 
     /**
      * 0:normal;-1:block

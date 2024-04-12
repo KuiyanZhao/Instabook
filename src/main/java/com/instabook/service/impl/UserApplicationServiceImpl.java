@@ -6,12 +6,14 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.instabook.common.exception.ClientErrorEnum;
 import com.instabook.common.exception.ClientException;
 import com.instabook.interceptor.UserTokenInterceptor;
+import com.instabook.model.dos.User;
 import com.instabook.model.dos.UserApplication;
 import com.instabook.mapper.UserApplicationMapper;
 import com.instabook.model.dos.UserRelationship;
 import com.instabook.service.UserApplicationService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.instabook.service.UserRelationshipService;
+import com.instabook.service.UserService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,10 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
     @Lazy
     @Resource
     private UserRelationshipService userRelationshipService;
+
+    @Lazy
+    @Resource
+    private UserService userService;
 
     @Override
     public UserApplication apply(Long userId) {
@@ -65,10 +71,14 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
             return userApplication;
         }
 
+        User user = userService.getById(UserTokenInterceptor.getUser().getUserId());
+
         //create a application
         userApplication = new UserApplication();
         userApplication.setApplicationId(IdUtil.getSnowflakeNextId());
         userApplication.setUserId(UserTokenInterceptor.getUser().getUserId());
+        userApplication.setUserHeadImg(user.getHeadImg());
+        userApplication.setUserName(user.getUserName());
         userApplication.setAnotherUserId(userId);
         userApplication.setStatus(0);
         this.save(userApplication);
@@ -104,6 +114,9 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
             return userApplication;
         }
 
+        User me = userService.getById(UserTokenInterceptor.getUser().getUserId());
+        User he = userService.getById(userApplication.getUserId());
+
         UserRelationship userRelationship1 = userRelationshipService.getOne(new QueryWrapper<UserRelationship>()
                 .eq("user_id", UserTokenInterceptor.getUser().getUserId())//me
                 .eq("another_user_id", userApplication.getUserId()));//he
@@ -116,8 +129,12 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
             //create a relationship
             userRelationship1 = new UserRelationship();
             userRelationship1.setUserRelationshipId(IdUtil.getSnowflakeNextId());
-            userRelationship1.setUserId(UserTokenInterceptor.getUser().getUserId());
-            userRelationship1.setAnotherUserId(userApplication.getUserId());
+            userRelationship1.setUserId(me.getUserId());
+            userRelationship1.setUserName(me.getUserName());
+            userRelationship1.setUserHeadImg(me.getHeadImg());
+            userRelationship1.setAnotherUserId(he.getUserId());
+            userRelationship1.setAnotherUserName(he.getUserName());
+            userRelationship1.setAnotherUserHeadImg(he.getHeadImg());
             userRelationship1.setFriendStatus(1);
             userRelationship1.setRelationStatus(0);
             userRelationshipService.save(userRelationship1);
@@ -133,8 +150,12 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
         } else {
             userRelationship2 = new UserRelationship();
             userRelationship2.setUserRelationshipId(IdUtil.getSnowflakeNextId());
-            userRelationship2.setAnotherUserId(userApplication.getAnotherUserId());
-            userRelationship2.setUserId(userApplication.getUserId());
+            userRelationship2.setAnotherUserId(me.getUserId());
+            userRelationship2.setAnotherUserName(me.getUserName());
+            userRelationship2.setAnotherUserHeadImg(me.getHeadImg());
+            userRelationship2.setUserId(he.getUserId());
+            userRelationship2.setUserName(he.getUserName());
+            userRelationship2.setUserHeadImg(he.getHeadImg());
             userRelationship2.setFriendStatus(1);
             userRelationship2.setRelationStatus(0);
             userRelationshipService.save(userRelationship2);

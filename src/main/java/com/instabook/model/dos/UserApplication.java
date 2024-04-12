@@ -41,6 +41,15 @@ public class UserApplication implements Serializable {
     private Long userId;
 
     /**
+     * name
+     */
+    @TableField("user_name")
+    private String userName;
+
+    @TableField("user_head_img")
+    private String userHeadImg;
+
+    /**
      * another one
      */
     @TableField("another_user_id")

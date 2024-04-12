@@ -7,11 +7,13 @@ import com.instabook.common.exception.ClientErrorEnum;
 import com.instabook.common.exception.ClientException;
 import com.instabook.interceptor.UserTokenInterceptor;
 import com.instabook.model.dos.Message;
+import com.instabook.model.dos.User;
 import com.instabook.model.dos.UserRelationship;
 import com.instabook.mapper.UserRelationshipMapper;
 import com.instabook.service.MessageService;
 import com.instabook.service.UserRelationshipService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.instabook.service.UserService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,11 @@ public class UserRelationshipServiceImpl extends ServiceImpl<UserRelationshipMap
     @Lazy
     @Resource
     private MessageService messageService;
+
+    @Lazy
+    @Resource
+    private UserService userService;
+
     @Override
     public UserRelationship operate(Long userId, int operator) {
         if (!List.of(-2, -1, 1).contains(operator)) {
@@ -70,9 +77,15 @@ public class UserRelationshipServiceImpl extends ServiceImpl<UserRelationshipMap
         //block
         if (operator == -1) {
             if (userRelationship == null) {
+                User user = userService.getById(UserTokenInterceptor.getUser().getUserId());
+                User anotherUser = userService.getById(userId);
                 userRelationship = new UserRelationship();
-                userRelationship.setUserId(UserTokenInterceptor.getUser().getUserId());
-                userRelationship.setAnotherUserId(userId);
+                userRelationship.setUserId(user.getUserId());
+                userRelationship.setUserName(user.getUserName());
+                userRelationship.setUserHeadImg(user.getHeadImg());
+                userRelationship.setAnotherUserId(anotherUser.getUserId());
+                userRelationship.setAnotherUserName(anotherUser.getUserName());
+                userRelationship.setAnotherUserHeadImg(anotherUser.getHeadImg());
                 userRelationship.setUserRelationshipId(IdUtil.getSnowflakeNextId());
                 userRelationship.setRelationStatus(-1);
                 this.save(userRelationship);
