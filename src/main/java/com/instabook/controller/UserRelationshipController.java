@@ -13,9 +13,8 @@ import java.util.List;
 
 /**
  * <p>
- *  user-relationship controller
+ * user-relationship controller
  * </p>
- *
  */
 @RestController
 @RequestMapping("/user-relationship")
@@ -36,6 +35,13 @@ public class UserRelationshipController {
         return R.success(userRelationshipService.list(new QueryWrapper<UserRelationship>()
                 .eq("user_id", UserTokenInterceptor.getUser().getUserId())
                 .eq("friend_status", 1)));
+    }
+
+    @GetMapping()
+    public R<UserRelationship> getByUserId(@RequestParam Long userId) {
+        return R.success(userRelationshipService.getOne(new QueryWrapper<UserRelationship>()
+                .eq("user_id", UserTokenInterceptor.getUser().getUserId())
+                .eq("another_user_id", userId)));
     }
 
 

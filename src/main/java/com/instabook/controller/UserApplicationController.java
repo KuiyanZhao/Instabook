@@ -50,6 +50,7 @@ public class UserApplicationController {
                 .eq(myApplication != null && myApplication == 0, "another_user_id", UserTokenInterceptor.getUser().getUserId())
                 .and(and -> and.eq("user_id", UserTokenInterceptor.getUser().getUserId())
                         .or()
-                        .eq("another_user_id", UserTokenInterceptor.getUser().getUserId()))));
+                        .eq("another_user_id", UserTokenInterceptor.getUser().getUserId()))
+                .orderByDesc("application_id")));
     }
 }

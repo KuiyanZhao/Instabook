@@ -72,6 +72,7 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
         }
 
         User user = userService.getById(UserTokenInterceptor.getUser().getUserId());
+        User anotherUser = userService.getById(userId);
 
         //create a application
         userApplication = new UserApplication();
@@ -80,6 +81,8 @@ public class UserApplicationServiceImpl extends ServiceImpl<UserApplicationMappe
         userApplication.setUserHeadImg(user.getHeadImg());
         userApplication.setUserName(user.getUserName());
         userApplication.setAnotherUserId(userId);
+        userApplication.setAnotherUserName(anotherUser.getUserName());
+        userApplication.setAnotherUserHeadImg(anotherUser.getHeadImg());
         userApplication.setStatus(0);
         this.save(userApplication);
         return userApplication;

@@ -6,6 +6,7 @@ import com.instabook.common.model.R;
 import com.instabook.interceptor.UserTokenInterceptor;
 import com.instabook.model.dos.User;
 import com.instabook.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,7 +54,7 @@ public class UserController {
     //search user by userName need login
     @GetMapping("/search")
     public R<List<User>> search(@RequestParam String userName) {
-        if (userName == null) {
+        if (StringUtils.isBlank(userName)) {
             throw new ClientException("user name can't be null");
         }
         return R.success(userService.search(userName));

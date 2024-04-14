@@ -55,6 +55,13 @@ public class UserApplication implements Serializable {
     @TableField("another_user_id")
     private Long anotherUserId;
 
+    @TableField("another_user_name")
+    private String anotherUserName;
+
+    @TableField("another_user_head_img")
+    private String anotherUserHeadImg;
+
+
     /**
      * 0:apply 1:pass -1:disapprove
      */
