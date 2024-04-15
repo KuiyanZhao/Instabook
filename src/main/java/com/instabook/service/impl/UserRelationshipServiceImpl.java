@@ -55,7 +55,7 @@ public class UserRelationshipServiceImpl extends ServiceImpl<UserRelationshipMap
                 throw new ClientException(ClientErrorEnum.ParamError, "he isn't your friend yet");
             }
 
-            boolean update = this.update(new UpdateWrapper<UserRelationship>()
+            this.update(new UpdateWrapper<UserRelationship>()
                     .eq("user_relationship_id", userRelationship.getUserRelationshipId())
                     .set("friend_status", 0));
             userRelationship.setFriendStatus(0);
@@ -63,13 +63,6 @@ public class UserRelationshipServiceImpl extends ServiceImpl<UserRelationshipMap
                     .eq("user_id", userId)
                     .eq("another_user_id", UserTokenInterceptor.getUser().getUserId())
                     .set("friend_status", 0));
-
-            if (update) {
-                //delete all message
-                messageService.update(new UpdateWrapper<Message>()
-                        .eq("user_id", UserTokenInterceptor.getUser().getUserId())
-                        .set("del_flag", 1));
-            }
             return userRelationship;
         }
 

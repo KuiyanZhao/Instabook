@@ -96,7 +96,8 @@ public class MessageServiceImpl extends ServiceImpl<MessageMapper, Message> impl
         List<Message> records = page.getRecords();
         if (records.size() != 0) {
             List<Message> list = this.list(new QueryWrapper<Message>()
-                    .in("message_id", records.stream().map(Message::getMessageId).toList()));
+                    .in("message_id", records.stream().map(Message::getMessageId).toList())
+                    .orderByDesc("message_id"));
             page.setRecords(list);
         }
         return page;

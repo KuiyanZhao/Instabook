@@ -59,7 +59,14 @@ public class MessageController {
         Page<Message> page = messageService.page(PageInfoUtil.startPage(),
                 new QueryWrapper<Message>()
                         .eq("chat_id", chatId)
+                        .and(wrapper -> wrapper.and(andWrapper -> andWrapper
+                                        .eq("user_id", UserTokenInterceptor.getUser().getUserId())
+                                        .eq("del_flag", 0))
+                                .or(andWrapper -> andWrapper
+                                        .eq("another_user_id", UserTokenInterceptor.getUser().getUserId())
+                                        .eq("another_del_flag", 0)))
                         .orderByDesc("message_id"));
+
         page.getRecords().sort(Comparator.comparingLong(Message::getMessageId));
 
         return R.success(page);
