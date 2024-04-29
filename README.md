@@ -237,3 +237,65 @@
 > ![image-20240327225827087](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/4d1eb5596f7f04f619042a491392b3a.png)
 >
 > 
+
+#### 4.Client GUI  implementation
+
++ login&register
+
+  Username is unique. Password is encripted with MD5 in the server service. When someone login ,the server endpoint will validate the password and username. If register, it will validate the unique username.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/login&register.jpg)
+
++ profile
+
+  You can get username and head image.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/profile.jpg)
+
++ upload head image
+
+  You can upload a new image for your head image.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/upload head image.jpg)
+
++ chats
+
+  You can see the recent chat page.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/chats.jpg)
+
++ chat
+
+  You can get a chat with friends with click friend list or chat list. It get the friend user Id and you can send text messages or image massages.
+
+  The function is 2pc of sending an image. First to upload the image to the server and get a Url. Then someone can send the Url to another.
+
+  For the server, saving an image has three ways:  s1.save a image file in a file path directly in the server machine; s2. save base64 in string to the database; s3.use a file server to save the files.
+
+  Both of 1 and 2 can resolve the problem. But the third function is the best function. Because the Bandwidth costs is very expensive and the file saving costs is very cheep. So using file saving service is the best solution of saving files.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/chat.jpg)
+
++ block or delete a friend
+
+  You can block or delete a friend with right click in friend list page.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/block or delete a friend.jpg)
+
++ search user and apply
+
+  You can search someone ant apply.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/search user and apply.jpg)
+
++ reply applications
+
+  You can reply for an user application.
+
+  ![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/reply applications.jpg)
+
++ friends
+
+  You can see all of the friends here.
+
+![](https://chat-bucket-demo.oss-cn-shanghai.aliyuncs.com/gui/friends.jpg)
