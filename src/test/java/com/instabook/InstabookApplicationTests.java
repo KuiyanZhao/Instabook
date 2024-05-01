@@ -19,7 +19,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//Author - Aarnav Bomma
+/**
+ * Author - Aarnav Bomma
+ */
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class InstabookApplicationTests {
